@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 function BigButton(props) {
 	const addSession = (username) => {
-		fetch("/api/submit", {
+		fetch("/api/update", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -12,7 +12,7 @@ function BigButton(props) {
 					username,
 					date: new Date().toDateString(),
 					startTime,
-					endTime: currentTime,
+					endTime: Date.now(),
 					points: currentPoints
 				}
 			),
@@ -22,31 +22,26 @@ function BigButton(props) {
 			.catch(console.log)
 	};
 
+
 	const [isOutside, setIsOutside] = useState(false);
 	const [startTime, setStartTime] = useState(Date.now());
-	const [previousPoints, setPreviousPoints] = useState(0);
-	const [currentPoints, setCurrentPoints] = useState(0);
+	const [currentPoints, setCurrentPoints] = useState(props.user.points);
 
 	useEffect(() => {
 		if (isOutside) {
 			const interval = setInterval(() => {
 				const currentTime = Date.now();
 				const elapsedMinutes = (currentTime - startTime) / 60000;
-				const points = previousPoints + props.uv * elapsedMinutes;
+				const points = currentPoints + props.uv * elapsedMinutes;
 				setCurrentPoints(points);
 			}, 1000);
 			return () => clearInterval(interval);
 		}
-	}, [isOutside, startTime, previousPoints, props.uv]);
+	}, [isOutside, startTime, currentPoints, props.uv]);
 
 	const handleButtonClick = () => {
 		if (isOutside) {
-			const currentTime = Date.now();
-			const elapsedMinutes = (currentTime - startTime) / 60000;
-			const points = previousPoints + props.uv * elapsedMinutes;
-			setPreviousPoints(points);
-			setStartTime(null);
-			addSession(props.username, points);
+			addSession(props.username);
 		} else {
 			setStartTime(Date.now());
 		}

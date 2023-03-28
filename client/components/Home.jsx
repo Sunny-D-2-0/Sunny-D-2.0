@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 import BigButton from "./BigButton.jsx";
 import WeatherDisplay from "./WeatherDisplay.jsx";
 
-function Home() {
-  const location = useLocation();
-  console.log(location)
+function Home(props) {
+  // const location = useLocation();
+  // console.log(location)
 
   const [temp, updateTemp] = useState(0);
   const [uv, updateUv] = useState(0);
   const [condition, updateCondition] = useState("");
   const [city, updateCity] = useState("");
   const [region, updateRegion] = useState("");
+  const [zipcode, setZipcode] = useState('');
+  
 
-  useEffect(() => {
+  function handleClick() {
     fetch(
-      `http://api.weatherapi.com/v1/current.json?key=3b98cf2d582f413d83c172329232503&q=${location.state.zipcodeEntry}`
+      `http://api.weatherapi.com/v1/current.json?key=3b98cf2d582f413d83c172329232503&q=${zipcode}`
     )
       .then((res) => res.json())
       .then((res) => {
@@ -28,19 +30,23 @@ function Home() {
       .catch((err) => {
         console.log("Error in weather api call: ", err);
       });
-  });
+  };
 
   return (
     <div id="home-page">
       <div id="content">
         <div>
-          <h1>HELLO, {location.state.nameEntry}!</h1>
+          <input type="text" value={zipcode} onChange={(e) => setZipcode(e.target.value)} />
+          <button onClick={handleClick}>Get location data</button>
+        </div>
+        <div>
+          <h1>{`Hello, ${props.displayName}!`}</h1>
           <div id="city">
             {city}, {region}
           </div>
 
           <WeatherDisplay
-            zipcodeEntry={location.state.zipcodeEntry}
+            zipcodeEntry={zipcode}
             temp={temp}
             uv={uv}
             condition={condition}
@@ -49,13 +55,7 @@ function Home() {
           />
         </div>
 
-        <BigButton username={location.state.nameEntry} uv={uv} />
-      </div>
-      <div id="footer">
-        <div id="developer">
-          Developed by: 
-        </div>
-        <div className="armadillo-img"></div>
+        <BigButton uv={uv} username={props.username} user={props.user} />
       </div>
     </div>
   );

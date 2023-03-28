@@ -34,6 +34,7 @@ userController.logIn = async (req, res, next) => {
     const { username, password } = req.body;
     console.log(username, password);
     const user = await User.findOne({ username });
+    if (!user) res.sendStatus(400);
     // Check password
     const match = await user.comparePassword(password);
     // If password and hash match
@@ -71,6 +72,7 @@ userController.updateUser = async (req, res, next) => {
   try {
     const { username, points } = req.body;
     const user = await User.findOne({ username });
+    console.log({user})
     const index = user.days.length - 1;
     const update = await User.updateOne(
       { username },

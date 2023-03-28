@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
 	Button,
 	CssBaseline,
@@ -28,20 +29,29 @@ const styles = {
 	},
 };
 
-const Login = () => {
-	const [username, setUsername] = useState('');
+const Login = ({username, setUsername, setDisplayName, setUser}) => {
 	const [password, setPassword] = useState('');
 	const [isSigningUp, setIsSigningUp] = useState(false); // Track whether user is signing up or not
 	const [name, setName] = useState('');
+	const nav = useNavigate();
 
-	const handleLogin = (event) => {
+	const handleLogin = async (event) => {
 		event.preventDefault();
 		console.log('frontend: ' + username, password);
 		const body = JSON.stringify({
 			username,
 			password
 		})
-		fetch('/api/login', { method: 'POST', body, headers: { 'Content-Type': 'application/json' }})
+		const user = await fetch('/api/login', { method: 'POST', body, headers: { 'Content-Type': 'application/json' }});
+		if (user.status === 400) alert('incorrect info')
+		else {
+			const json = await user.json()
+			setUser(json);
+			setDisplayName(json.name);
+			console.log('response: ', json)
+			nav('/home')
+		}
+
 	};
 
 	const handleSignUp = (event) => {
