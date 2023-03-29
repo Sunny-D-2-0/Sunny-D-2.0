@@ -1,3 +1,7 @@
+* {
+  font-family: "Montserrat";
+}
+
 body {
   font-family: "Montserrat";
   background: rgb(0, 146, 255);
@@ -65,7 +69,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   text-align: center;
   box-shadow: 0px 0px 6px rgb(71, 159, 232);
   width: 24vw;
@@ -119,6 +123,7 @@ progress {
 }
 
 #big-button {
+  font-weight: 500;
   width: 75vw;
   padding: 16px;
   background-color: rgba(251, 251, 251, 0.661);
@@ -127,22 +132,27 @@ progress {
   border-radius: 12px;
 }
 
+.warning {
+  font-size: 15px;
+  color: red;
+  text-align: center;
+}
+
 #content {
   margin-top: 80px;
 }
 
-.armadillo-img {
-  width: 40px;
-  height: 40px;
-  background-size: 100% 100%;
-}
-#footer {
-  display: flex;
+.get-location-button {
+  padding: 4px 6px;
+  background-color: rgba(251, 251, 251, 0.661);
+  border: none;
+  box-shadow: 0px 0px 6px rgb(116, 116, 116);
+  border-radius: 8px;
+	cursor: pointer;
 }
 
-#developer {
-	color: rgb(255, 158, 203);
+.location-form {
   display: flex;
-  align-items: center;
-  margin-inline: 12px;
+  gap: 10px;
+  margin-left: 15px;
 }

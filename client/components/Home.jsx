@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
-// import { useLocation } from "react-router-dom";
 import BigButton from "./BigButton.jsx";
 import WeatherDisplay from "./WeatherDisplay.jsx";
 
 function Home(props) {
-  // const location = useLocation();
-  // console.log(location)
 
   const [temp, updateTemp] = useState(0);
   const [uv, updateUv] = useState(0);
@@ -35,9 +32,9 @@ function Home(props) {
   return (
     <div id="home-page">
       <div id="content">
-        <div>
+        <div className="location-form">
           <input type="text" value={zipcode} onChange={(e) => setZipcode(e.target.value)} />
-          <button onClick={handleClick}>Get location data</button>
+          <button className="get-location-button" onClick={handleClick}>Get location data</button>
         </div>
         <div>
           <h1>{`Hello, ${props.displayName}!`}</h1>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Events from "./Events.jsx";
 
 function BigButton(props) {
 	const addSession = (username) => {
@@ -22,17 +23,29 @@ function BigButton(props) {
 			.catch(console.log)
 	};
 
-
 	const [isOutside, setIsOutside] = useState(false);
 	const [startTime, setStartTime] = useState(Date.now());
 	const [currentPoints, setCurrentPoints] = useState(props.user.points);
+	const [showWarning, setShowWarning] = useState(false);
+
+	const Warning = () => {
+		return (
+			<div className="warning">Put on sunscreen before going back outside!</div>
+		)
+	}
+
+	useEffect(() => {
+		if (currentPoints >= 100) {
+			setShowWarning(true);
+		}
+	}, [currentPoints]);
 
 	useEffect(() => {
 		if (isOutside) {
 			const interval = setInterval(() => {
 				const currentTime = Date.now();
 				const elapsedMinutes = (currentTime - startTime) / 60000;
-				const points = currentPoints + props.uv * elapsedMinutes;
+				const points = currentPoints + (props.uv/60);
 				setCurrentPoints(points);
 			}, 1000);
 			return () => clearInterval(interval);
@@ -54,10 +67,12 @@ function BigButton(props) {
 			<div id="progress-container">
 				<div id="loading" style={{ width: `${currentPoints}%` }}></div>
 			</div>
+			{showWarning && <Warning />}
 			<br />
 			<button id="big-button" onClick={handleButtonClick}>
 				{isOutside ? "YOU'RE OUTSIDE! GO INSIDE?" : "YOU'RE INSIDE! GO OUTSIDE?"}
 			</button>
+			<Events setCurrentPoints={setCurrentPoints} currentPoints={currentPoints} uv={props.uv} username={props.username} />
 		</div>
 	);
 }
