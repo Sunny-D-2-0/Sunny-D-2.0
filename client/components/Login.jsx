@@ -4,13 +4,9 @@ import {
 	Button,
 	CssBaseline,
 	TextField,
-	FormControlLabel,
-	Checkbox,
 	Link,
 	Grid,
-	Box,
 	Typography,
-	Avatar,
 } from '@material-ui/core';
 
 const styles = {
@@ -19,17 +15,20 @@ const styles = {
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
+		fontFamily: 'Montserrat'
 	},
 	form: {
 		width: '100%',
 		marginTop: '3px',
+		fontFamily: 'Montserrat'
 	},
 	submit: {
 		margin: '3px 0 2px',
+		fontFamily: 'Montserrat'
 	},
 };
 
-const Login = ({username, setUsername, setDisplayName, setUser}) => {
+const Login = ({ username, setUsername, setDisplayName, setUser }) => {
 	const [password, setPassword] = useState('');
 	const [isSigningUp, setIsSigningUp] = useState(false); // Track whether user is signing up or not
 	const [name, setName] = useState('');
@@ -42,26 +41,35 @@ const Login = ({username, setUsername, setDisplayName, setUser}) => {
 			username,
 			password
 		})
-		const user = await fetch('/api/login', { method: 'POST', body, headers: { 'Content-Type': 'application/json' }});
-		if (user.status === 400) alert('incorrect info')
+		const user = await fetch('/api/login', { method: 'POST', body, headers: { 'Content-Type': 'application/json' } });
+		if (user.status === 400) alert('Incorrect info!');
 		else {
 			const json = await user.json()
 			setUser(json);
 			setDisplayName(json.name);
-			console.log('response: ', json)
-			nav('/home')
+			console.log('response: ', json);
+			nav('/home');
 		}
 
 	};
 
-	const handleSignUp = (event) => {
+	const handleSignUp = async (event) => {
 		event.preventDefault();
 		const body = JSON.stringify({
 			username,
 			password,
 			name
 		})
-		fetch('/api/signup', { method: 'POST', body, headers: { 'Content-Type': 'application/json' }})
+		const res = await fetch('/api/signup', { method: 'POST', body, headers: { 'Content-Type': 'application/json' } })
+		const json = await res.json();
+		console.log(json)
+		if (!json) {
+			alert('User already exists');
+			return;
+		}
+		setUser(json);
+		setDisplayName(json.name);
+		nav('/home')
 	};
 
 	const handleSignUpClick = () => {
@@ -73,10 +81,10 @@ const Login = ({username, setUsername, setDisplayName, setUser}) => {
 	};
 
 	return (
-		<div style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+		<div style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 20, fontFamily: 'Montserrat' }}>
 			<CssBaseline />
-			<div style={styles.paper}>
-				<Typography component="h1" variant="h5">
+			<div style={{...styles.paper, fontFamily: 'Montserrat'}}>
+				<Typography component="h1" variant="h5" style={{fontFamily: 'Montserrat'}}>
 					{isSigningUp ? 'Sign up' : 'Sign in'}
 				</Typography>
 				{isSigningUp ? (
@@ -164,10 +172,6 @@ const Login = ({username, setUsername, setDisplayName, setUser}) => {
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
 						/>
-						<FormControlLabel
-							control={<Checkbox value="remember" color="primary" />}
-							label="Remember me"
-						/>
 						<Button
 							type="submit"
 							fullWidth
@@ -178,11 +182,6 @@ const Login = ({username, setUsername, setDisplayName, setUser}) => {
 							Sign In
 						</Button>
 						<Grid container>
-							<Grid item xs>
-								<Link href="#" variant="body2">
-									Forgot password?
-								</Link>
-							</Grid>
 							<Grid item>
 								<Link href="#" variant="body2" onClick={handleSignUpClick}>
 									{"Don't have an account? Sign Up"}

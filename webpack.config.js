@@ -31,7 +31,19 @@ module.exports = {
                     'css-loader',
                     'sass-loader',
                 ]
-            }
+            },
+            {
+                test: /\.(png|jpg|gif)$/i,
+                exclude: /node_modules/,
+                use: [
+                  {
+                    loader: 'file-loader',
+                    options: {
+                      limit: 8192,
+                    },
+                  },
+                ],
+              },
         ]
     },
     plugins: [

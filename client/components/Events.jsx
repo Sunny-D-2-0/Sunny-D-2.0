@@ -2,10 +2,10 @@ import React from 'react';
 import { useState } from 'react';
 import '../styles/Events.css';
 
-const Events = ({currentPoints, setCurrentPoints, uv, username}) => {
+const Events = ({currentPoints, setCurrentPoints, uv, username, user}) => {
 	const [activity, setActivity] = useState('')
 	const [time, setTime] = useState('')
-	const [list, setList] = useState([]);
+	const [list, setList] = useState(user.activities);
 
 	const handleTimeChange = (e) => {
 		setTime(e.target.value);
@@ -15,7 +15,7 @@ const Events = ({currentPoints, setCurrentPoints, uv, username}) => {
 	};
 
 	const List = () => (
-		list.map(activity => (
+		list?.length?.map(activity => (
 			<div className='activity'>
 			  <h6>{activity.name}: <span>{activity.time} mins</span></h6>
 			</div>
@@ -39,9 +39,8 @@ const Events = ({currentPoints, setCurrentPoints, uv, username}) => {
 				{
 					username,
 					date: new Date().toDateString(),
-					points: currentPoints,
-					activity,
-					time
+					points: points,
+					activity: {name: activity, time: parseInt(time)}
 				}
 			),
 		})
@@ -52,10 +51,12 @@ const Events = ({currentPoints, setCurrentPoints, uv, username}) => {
 
 	return (
 		<div className='events-container'>
-			<label className='input-label' htmlFor="activity">Activity:</label>
-			<input id='activity' value={activity} onChange={(e) => handleActivityChange(e)}></input>
-			<label className='input-label' htmlFor="time">Duration:</label>
+			<div className='activities-form'>
+			<label className='input-label' style={{marginRight: 5}} htmlFor="activity">Activity:</label>
+			<input id='activity' style={{marginRight: 10}} value={activity} onChange={(e) => handleActivityChange(e)}></input>
+			<label className='input-label' style={{marginRight: 5}} htmlFor="time">Duration:</label>
 			<input id='time' value={time} onChange={(e) => handleTimeChange(e)}></input>
+			</div>
 			<button className='add-event-button' onClick={handleClick}>Add activity</button>
 			<List />
 		</div>
