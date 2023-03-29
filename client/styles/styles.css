@@ -143,6 +143,7 @@ progress {
 }
 
 .get-location-button {
+  font-size: 12px;
   padding: 4px 6px;
   background-color: rgba(251, 251, 251, 0.661);
   border: none;
@@ -155,4 +156,8 @@ progress {
   display: flex;
   gap: 10px;
   margin-left: 15px;
+}
+
+.location-form input {
+  width: 90px;
 }
