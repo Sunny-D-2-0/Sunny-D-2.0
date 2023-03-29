@@ -10,8 +10,8 @@ userController.createUser = async (req, res, next) => {
     const user = await User.findOne({ username });
     //if there is not a user, create one
     if (!user) {
-      const newUser = await User.create({ name, username, password, days: [{ date: new Date().toDateString(), points: 0 }] });
-      res.locals.created = true;
+      const newUser = await User.create({ name, username, password, days: [{ date: new Date().toDateString(), points: 0, activities: [] }] });
+      res.locals.created = { name, points: 0 };
       return next();
       //if there is already that username in database
     } else {
@@ -21,7 +21,7 @@ userController.createUser = async (req, res, next) => {
   } catch (err) {
     return next({
       log: 'Error in userController.createUser: ' + err,
-      status: 418,
+      status: 400,
       message: { err: 'An error occurred in userController.createUser' },
     });
   }
@@ -44,25 +44,25 @@ userController.logIn = async (req, res, next) => {
       const currentDate = days[index].date;
       // If last date in days array is today, send back points
       if (currentDate === date) {
-        res.locals.userInfo = { id, name, points: days[index].points }
+        res.locals.userInfo = { id, name, points: days[index].points, activities: days[index].activities }
         return next();
         // Otherwise, create new date in days array and set points to 0
       } else {
         const update = await User.findOneAndUpdate(
           { username },
-          { $push: { days: { date, points: 0 } } }
+          { $push: { days: { date, points: 0, activities: [] } } }
         );
-        res.locals.userInfo = { id, name, points: 0 }
+        res.locals.userInfo = { id, name, points: 0, activities: [] }
         return next();
       }
-      // If password and hash don't match
+      // If password and hash don't match send back false
     } else {
-      return next();
+      res.sendStatus(400);
     }
   } catch (err) {
     return next({
       log: 'Error in userController.logIn: ' + err,
-      status: 418,
+      status: 400,
       message: { err: 'An error occurred in userController.logIn' },
     });
   }
@@ -70,20 +70,27 @@ userController.logIn = async (req, res, next) => {
 
 userController.updateUser = async (req, res, next) => {
   try {
-    const { username, points } = req.body;
+    const { username, points, activity } = req.body;
     const user = await User.findOne({ username });
     console.log({user})
     const index = user.days.length - 1;
-    const update = await User.updateOne(
+    const updatePoints = await User.updateOne(
       { username },
-      { $set: { [`days.${ index }.points`]: points } },
+      { $set: { [`days.${ index }.points`]: points }},
       { new: true }
     );
+    if (activity) {
+      const updateActivity = await User.updateOne(
+        { username },
+        { $set: { [`days.${ index }.points`]: points }, $push: { [`days.${ index }.activities`]: activity }},
+        { new: true }
+      );
+    }
     return next();
   } catch (err) {
     return next({
       log: 'Error in userController.updateUser: ' + err,
-      status: 418,
+      status: 400,
       message: { err: 'An error occurred in userController.updateUser' },
     });
   }

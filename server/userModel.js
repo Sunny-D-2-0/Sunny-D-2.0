@@ -9,7 +9,7 @@ const userSchema = new Schema({
   name: { type: String, required: true },
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  days: [{ date: String, points: Number }]
+  days: [{ date: String, points: Number, activities: [{ name: String, time: Number }] }]
 });
 
 userSchema.pre('save', function (next) {
