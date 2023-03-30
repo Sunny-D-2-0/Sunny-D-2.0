@@ -27,6 +27,7 @@ function Home(props) {
       .catch((err) => {
         console.log("Error in weather api call: ", err);
       });
+      setZipcode('');
   };
 
   async function getLocation() {

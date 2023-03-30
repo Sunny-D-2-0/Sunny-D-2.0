@@ -7,7 +7,6 @@ import {
 	Link,
 	Grid,
 	Typography,
-	Avatar
 } from '@material-ui/core';
 
 import logo from '../images/logo.png'
@@ -47,13 +46,12 @@ const Login = ({ username, setUsername, setDisplayName, setUser }) => {
 		const user = await fetch('/api/login', { method: 'POST', body, headers: { 'Content-Type': 'application/json' } });
 		if (user.status === 400) alert('Incorrect info!');
 		else {
-			const json = await user.json()
+			const json = await user.json();
 			setUser(json);
 			setDisplayName(json.name);
 			console.log('response: ', json);
 			nav('/home');
 		}
-
 	};
 
 	const handleSignUp = async (event) => {

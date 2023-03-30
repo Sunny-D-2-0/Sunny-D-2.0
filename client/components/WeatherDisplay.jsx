@@ -13,8 +13,8 @@ function WeatherDisplay(props) {
             style={{
               "backgroundImage": `url(${props.condition})`,
               "backgroundSize": "100% 100%",
-              "height": "62px",
-              "width": "62px", "margin": "0", "padding": "20px 0"
+              "height": "60px",
+              "width": "60px"
             }}
           ></p>
         </div>

@@ -30,7 +30,6 @@ userController.createUser = async (req, res, next) => {
 userController.logIn = async (req, res, next) => {
   try {
     const date = new Date().toDateString();
-    console.log(req.body);
     const { username, password } = req.body;
     const user = await User.findOne({ username });
     if (!user) res.sendStatus(400);
