@@ -45,7 +45,6 @@ api.patch('/update', userController.updateUser, (req, res) => {
   return res.sendStatus(200);
 });
 
-
 // Unknown route handler
 app.use((req, res) => res.sendStatus(404));
 

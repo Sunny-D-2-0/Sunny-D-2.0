@@ -15,7 +15,7 @@ const Events = ({currentPoints, setCurrentPoints, uv, username, user}) => {
 	};
 
 	const List = () => (
-		list?.length?.map(activity => (
+		list?.map(activity => (
 			<div className='activity'>
 			  <h6>{activity.name}: <span>{activity.time} mins</span></h6>
 			</div>
@@ -47,6 +47,8 @@ const Events = ({currentPoints, setCurrentPoints, uv, username, user}) => {
 			.then(res => res.json())
 			.then(console.log)
 			.catch(console.log)
+		setTime('');
+		setActivity('');
 	}
 
 	return (

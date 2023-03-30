@@ -32,7 +32,6 @@ userController.logIn = async (req, res, next) => {
     const date = new Date().toDateString();
     console.log(req.body);
     const { username, password } = req.body;
-    console.log(username, password);
     const user = await User.findOne({ username });
     if (!user) res.sendStatus(400);
     // Check password
@@ -72,7 +71,6 @@ userController.updateUser = async (req, res, next) => {
   try {
     const { username, points, activity } = req.body;
     const user = await User.findOne({ username });
-    console.log({user})
     const index = user.days.length - 1;
     const updatePoints = await User.updateOne(
       { username },
