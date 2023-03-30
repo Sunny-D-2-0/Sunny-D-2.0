@@ -3,7 +3,10 @@ const mongoose = require('mongoose');
 const userController = require('./controllers/userController');
 const path = require('path');
 
-const URI = 'mongodb+srv://pj:cs39@cluster.kkyleu9.mongodb.net/SunnyD2?retryWrites=true&w=majority';
+const URI = process.env.NODE_ENV !== 'test' ? 
+'mongodb+srv://pj:cs39@cluster.kkyleu9.mongodb.net/SunnyD2?retryWrites=true&w=majority' : 
+'mongodb+srv://pj:cs39@cluster.kkyleu9.mongodb.net/?retryWrites=true&w=majority';
+
 
 // Data Base
 mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -20,7 +23,7 @@ app.use(express.static('public'));
 const api = express.Router();
 app.use('/api', api);
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'test') {
   app.use('/build', express.static(path.join(__dirname, '../build')));
   app.get('/', (req, res) => {
     return res.status(200).sendFile(path.join(__dirname, '../index.html'))
@@ -38,7 +41,7 @@ api.post('/login', userController.logIn, (req, res) => {
 });
 
 //Update user points
-api.post('/update', userController.updateUser, (req, res) => {
+api.patch('/update', userController.updateUser, (req, res) => {
   return res.sendStatus(200);
 });
 
@@ -61,3 +64,5 @@ app.use((err, req, res, next) => {
 app.listen(3000, () => {
   console.log('listening on port 3000');
 });
+
+module.exports = app;

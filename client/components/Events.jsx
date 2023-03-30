@@ -31,7 +31,7 @@ const Events = ({currentPoints, setCurrentPoints, uv, username, user}) => {
 		setCurrentPoints(points);
 
 		fetch("/api/update", {
-			method: "POST",
+			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json",
 			},
