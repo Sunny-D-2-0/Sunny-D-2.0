@@ -4,8 +4,8 @@ const userController = require('./controllers/userController');
 const path = require('path');
 
 const URI = process.env.NODE_ENV !== 'test' ? 
-'mongodb+srv://pj:cs39@cluster.kkyleu9.mongodb.net/SunnyD2?retryWrites=true&w=majority' : 
-'mongodb+srv://pj:cs39@cluster.kkyleu9.mongodb.net/?retryWrites=true&w=majority';
+'mongodb+srv://[realdatabase]' : 
+'mongodb+srv://[testdatabase]';
 
 
 // Data Base

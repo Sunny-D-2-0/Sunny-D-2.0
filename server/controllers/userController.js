@@ -11,7 +11,7 @@ userController.createUser = async (req, res, next) => {
     //if there is not a user, create one
     if (!user) {
       const newUser = await User.create({ name, username, password, days: [{ date: new Date().toDateString(), points: 0, activities: [] }] });
-      res.locals.created = { name, points: 0 };
+      res.locals.created = { name, points: 0, activities: [] };
       return next();
       //if there is already that username in database
     } else {
