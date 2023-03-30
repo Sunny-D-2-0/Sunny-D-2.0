@@ -1,10 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const userController = require('./controllers/userController');
-// const path = require('path');
+const path = require('path');
 
-const URI =
-  'mongodb+srv://SunnyD:SunnyD@sunnyd.zoziq2e.mongodb.net/?retryWrites=true&w=majority';
+const URI = process.env.NODE_ENV !== 'test' ? 
+'mongodb+srv://[realdatabase]' : 
+'mongodb+srv://[testdatabase]';
+
 
 // Data Base
 mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -21,10 +23,26 @@ app.use(express.static('public'));
 const api = express.Router();
 app.use('/api', api);
 
-// Record Button Click Route
-// Date, Points, Username
-api.post('/submit', userController.updateUser, (req, res) => {
-  return res.status(200).json(res.locals.totalPoints);
+if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'test') {
+  app.use('/build', express.static(path.join(__dirname, '../build')));
+  app.get('/', (req, res) => {
+    return res.status(200).sendFile(path.join(__dirname, '../index.html'))
+});
+}
+
+//Sign Up
+api.post('/signup', userController.createUser, (req, res) => {
+  return res.status(200).json(res.locals.created);
+});
+
+//Log In 
+api.post('/login', userController.logIn, (req, res) => {
+  return res.status(200).json(res.locals.userInfo);
+});
+
+//Update user points
+api.patch('/update', userController.updateUser, (req, res) => {
+  return res.sendStatus(200);
 });
 
 // Unknown route handler
@@ -45,3 +63,5 @@ app.use((err, req, res, next) => {
 app.listen(3000, () => {
   console.log('listening on port 3000');
 });
+
+module.exports = app;

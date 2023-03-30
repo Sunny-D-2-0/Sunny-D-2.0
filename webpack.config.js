@@ -22,33 +22,45 @@ module.exports = {
                         ],
                     }
                 }
-            }, 
+            },
             {
-                test:/\.s[ac]ss$/i,
+                test: /\.css$/i,
                 exclude: /node_modules/,
                 use: [
                     'style-loader',
                     'css-loader',
                     'sass-loader',
                 ]
-            }
+            },
+            {
+                test: /\.(png|jpg|gif)$/i,
+                exclude: /node_modules/,
+                use: [
+                  {
+                    loader: 'file-loader',
+                    options: {
+                      limit: 8192,
+                    },
+                  },
+                ],
+              },
         ]
     },
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Development',
             template: './index.html',
-          }),
+        }),
     ],
     devServer: {
         static: {
-          publicPath: '/build',
-          directory: path.resolve(__dirname, 'build'),
+            publicPath: '/build',
+            directory: path.resolve(__dirname, 'build'),
         },
         proxy: {
-          '/trips': 'http://localhost:3000/',
+            '/api': 'http://localhost:3000/',
         },
-				compress: true,
-				port: 8080,
-      },
+        compress: true,
+        port: 8080,
+    },
 }

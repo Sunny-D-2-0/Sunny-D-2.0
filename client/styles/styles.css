@@ -1,0 +1,145 @@
+* {
+  font-family: "Montserrat";
+}
+
+body {
+  font-family: "Montserrat";
+  background: rgb(0, 146, 255);
+  background: linear-gradient(
+    0deg,
+    rgba(0, 146, 255, 1) 0%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(255, 188, 0, 1) 100%
+  );
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+	margin: 0;
+}
+
+#loginElements {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 18vh;
+  border-radius: 4%;
+  width: 75vw;
+  height: 40vh;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.flex input {
+  text-align: center;
+  color: black;
+  margin: 18px 0 10px 0;
+  border-radius: 15px;
+  border: none;
+  box-shadow: 0px 0px 6px rgba(0, 146, 255, 1);
+  width: 12.8rem;
+  padding: 8px 20px;
+}
+
+#loginButton {
+  border: none;
+  background: none;
+}
+
+#home-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+}
+
+#weatherDisplay {
+  width: 100vw;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.dataCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  box-shadow: 0px 0px 6px rgb(71, 159, 232);
+  width: 25vw;
+  height: 13vh;
+  margin-bottom: 40px;
+  border-radius: 6px;
+  padding: 6px;
+  background-color: rgba(251, 251, 251, 0.872);
+}
+
+.dataCard p {
+  color: rgb(255, 158, 203);
+  font-weight: 500;
+}
+
+h1 {
+  margin-bottom: 0px;
+  padding-left: 14px;
+}
+
+#city {
+  margin-bottom: 40px;
+  padding-left: 14px;
+}
+
+#d-meter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+#big-button {
+  font-weight: 500;
+  width: 75vw;
+  padding: 16px;
+  background-color: rgba(251, 251, 251, 0.661);
+  border: none;
+  box-shadow: 0px 0px 6px rgb(116, 116, 116);
+  border-radius: 12px;
+}
+
+.warning {
+  font-size: 15px;
+  color: red;
+  text-align: center;
+}
+
+#content {
+  margin-top: 80px;
+}
+
+.get-location-button {
+  font-size: 12px;
+  padding: 4px 6px;
+  background-color: rgba(251, 251, 251, 0.661);
+  border: none;
+  box-shadow: 0px 0px 6px rgb(116, 116, 116);
+  border-radius: 8px;
+	cursor: pointer;
+}
+
+.location-form {
+  display: flex;
+  gap: 10px;
+  margin-left: 15px;
+}
+
+.location-form input {
+  width: 112px;
+}
