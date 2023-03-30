@@ -44,7 +44,7 @@ function Home(props) {
     console.log("lat and long are", lat, long);
     const latlong = `${lat},${long}`
     fetch(
-      `http://api.weatherapi.com/v1/current.json?key=3b98cf2d582f413d83c172329232503&q=${latlong}`
+      `http://api.weatherapi.com/v1/current.json?key=[apikey]&q=${latlong}`
     )
       .then((res) => res.json())
       .then((res) => {
