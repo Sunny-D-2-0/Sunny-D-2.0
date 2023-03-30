@@ -7,7 +7,10 @@ import {
 	Link,
 	Grid,
 	Typography,
+	Avatar
 } from '@material-ui/core';
+
+import logo from '../images/logo.png'
 
 const styles = {
 	paper: {
@@ -84,8 +87,9 @@ const Login = ({ username, setUsername, setDisplayName, setUser }) => {
 		<div style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 20, fontFamily: 'Montserrat' }}>
 			<CssBaseline />
 			<div style={{...styles.paper, fontFamily: 'Montserrat'}}>
+				<img style={{height: 100, width: 'auto'}} src={logo}/>
 				<Typography component="h1" variant="h5" style={{fontFamily: 'Montserrat'}}>
-					{isSigningUp ? 'Sign up' : 'Sign in'}
+					{isSigningUp ? 'Sign Up' : 'Sign In'}
 				</Typography>
 				{isSigningUp ? (
 					<form style={styles.form} onSubmit={handleSignUp}>

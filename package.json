@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Pink-Fairy-Armadillo-39/SunnyD.git"
+    "url": "git+https://github.com/Sunny-D-2-0/Sunny-D-2.0.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Pink-Fairy-Armadillo-39/SunnyD/issues"
+    "url": "https://github.com/Sunny-D-2-0/Sunny-D-2.0/issues"
   },
-  "homepage": "https://github.com/Pink-Fairy-Armadillo-39/SunnyD#readme",
+  "homepage": "https://github.com/Sunny-D-2-0/Sunny-D-2.0#readme",
   "devDependencies": {
     "@babel/core": "^7.21.3",
     "@babel/preset-env": "^7.20.2",

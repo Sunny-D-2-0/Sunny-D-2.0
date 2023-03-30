@@ -33,7 +33,7 @@ function BigButton(props) {
 
 	const Warning = () => {
 		return (
-			<div className="warning">Put on sunscreen before going back outside!</div>
+			<div className="warning">{currentPoints < 200 ? 'Put on sunscreen before going back outside!' : 'For the love of God, please don\'t go back outside!'}</div>
 		)
 	}
 
@@ -48,9 +48,9 @@ function BigButton(props) {
 			const interval = setInterval(() => {
 				const currentTime = Date.now();
 				const elapsedMinutes = (currentTime - startTime) / 60000;
-				const points = currentPoints + (props.uv);
+				const points = currentPoints + (props.uv/5);
 				setCurrentPoints(points);
-			}, 1000);
+			}, 200);
 			return () => clearInterval(interval);
 		}
 	}, [isOutside, startTime, currentPoints, props.uv]);
