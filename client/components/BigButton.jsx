@@ -7,7 +7,7 @@ import overBottle from '../images/SunnyDBottle_OVER5.png';
 function BigButton(props) {
 	const addSession = (username) => {
 		fetch("/api/update", {
-			method: "POST",
+			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json",
 			},

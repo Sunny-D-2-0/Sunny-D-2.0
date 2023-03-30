@@ -1,20 +1,17 @@
-const userController = require('../server/controllers/userController.js');
 const User = require('../server/userModel.js');
 const mongoose = require('mongoose');
 
-// Define the MongoDB connection URI for the test database
+// // Define the MongoDB connection URI for the test database
 const MONGODB_URI = 'mongodb+srv://pj:cs39@cluster.kkyleu9.mongodb.net/?retryWrites=true&w=majority';
 
 // Connect to the test database
-
 describe('db unit tests', () => {
-	beforeEach(async () => {
+	beforeAll(async () => {
 		await mongoose.connect(MONGODB_URI, {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
 		});
 	});
-
 
 	afterAll(async () => {
 		await User.deleteMany({});
